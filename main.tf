@@ -8,19 +8,19 @@ terraform {
 
 provider "aws" {
 	region = var.region
-  profile = "greens"
+  profile = "nelsonjk"
 }
 
 
 
 resource "aws_iam_role" "eks-iam-role" {
- name = "greens-cluster-eks-iam-role"
+ name = "nelsonjk-cluster-eks-iam-role"
 
  path = "/"
 
  assume_role_policy = <<EOF
 {
- "Version": "2012-10-17",
+ "Version": "2022-10-17",
  "Statement": [
   {
    "Effect": "Allow",
@@ -45,8 +45,8 @@ resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly-EK
 }
 
 
-resource "aws_eks_cluster" "greens-cluster-eks" {
- name = "greens-cluster-cluster"
+resource "aws_eks_cluster" "nelsonjk-cluster-eks" {
+ name = "nelsonjk-cluster-cluster"
  role_arn = aws_iam_role.eks-iam-role.arn
 
  
@@ -60,7 +60,7 @@ resource "aws_eks_cluster" "greens-cluster-eks" {
 
  depends_on = [
   aws_iam_role.eks-iam-role,
-  aws_cloudwatch_log_group.greens-cluster
+  aws_cloudwatch_log_group.nelsonjk-cluster
  ]
 }
 
@@ -105,8 +105,8 @@ resource "aws_iam_role" "workernodes" {
  }
 
   resource "aws_eks_node_group" "worker-node-group" {
-  cluster_name  = aws_eks_cluster.greens-cluster-eks.name
-  node_group_name = "greens-cluster-workernodes"
+  cluster_name  = aws_eks_cluster.nelsonjk-cluster-eks.name
+  node_group_name = "nelsonjk-cluster-workernodes"
   node_role_arn  = aws_iam_role.workernodes.arn
   subnet_ids   = [var.subnet_id_1, var.subnet_id_2]
   
@@ -127,9 +127,9 @@ resource "aws_iam_role" "workernodes" {
   ]
  } 
  
- resource "aws_cloudwatch_log_group" "greens-cluster" {
+ resource "aws_cloudwatch_log_group" "nelsonjk-cluster" {
   
-  name              = "/aws/eks/greens-cluster/cluster"
+  name              = "/aws/eks/nelsonjk-cluster/cluster"
   retention_in_days = 7
 
   
