@@ -29,5 +29,6 @@ variable "subnet_id_1" {
  variable "vpc_id" {
   type = string
   default = "vpc-0b9f2a5f7910d550b"
-   
+
+
  }
